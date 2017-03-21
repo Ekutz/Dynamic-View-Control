@@ -22,8 +22,8 @@ public class MainActivity extends AppCompatActivity {
     List<String> data = new ArrayList<>();
     ArrayAdapter<String> adapter;
 
-    final int spinnerFinalNum = 5350;
-    int spinnerNum = 0;
+    final int viewPreId = 5350;
+    int viewNum = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +54,9 @@ public class MainActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                spinnerNum++;
+                viewNum++;
                 Spinner newSpin = new Spinner(MainActivity.this);
-                newSpin.setId(spinnerFinalNum+spinnerNum);
+                newSpin.setId(viewPreId + viewNum);
                 newSpin.setAdapter(adapter);
                 linear.addView(newSpin, new LinearLayoutCompat.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT));
             }
@@ -68,11 +68,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, ResultActivity.class);
-                i.putExtra("count", spinnerNum);
+                i.putExtra("count", viewNum);
                 i.putExtra("resultOrg", spinnerOrg.getSelectedItem().toString());
-                if(spinnerNum>0){
-                    for(int j=1;j<spinnerNum+1;j++) {
-                        Spinner getSpinner = (Spinner)findViewById(spinnerFinalNum+j);
+                if(viewNum >0){
+                    for(int j = 1; j< viewNum +1; j++) {
+                        Spinner getSpinner = (Spinner)findViewById(viewPreId +j);
                         i.putExtra("result"+j, getSpinner.getSelectedItem().toString());
                     }
                 }
@@ -85,10 +85,10 @@ public class MainActivity extends AppCompatActivity {
         btnDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(spinnerNum!=0) {
-                    Spinner removeSpinner = (Spinner) findViewById(spinnerFinalNum + spinnerNum);
+                if(viewNum !=0) {
+                    Spinner removeSpinner = (Spinner) findViewById(viewPreId + viewNum);
                     linear.removeView(removeSpinner);
-                    spinnerNum--;
+                    viewNum--;
                 }
             }
         });
